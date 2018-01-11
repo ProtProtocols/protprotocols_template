@@ -27,7 +27,7 @@ USER biodocker
 
 
 WORKDIR /home/biodocker
-RUN mkdir IN && mkdir OUT && mkdir LOG && mkdir misc && rmdir bin
+RUN mkdir IN  OUT LOG misc && rmdir bin
 
 
 EXPOSE 8888
