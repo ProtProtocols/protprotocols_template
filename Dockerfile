@@ -10,18 +10,18 @@ RUN python -m pip install --upgrade pip \
 RUN conda create -n ipykernel_py3 python=3 ipykernel \
  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install'
 
-## further optional functionalities
-# R kernel for jupyter
-#RUN apt-get update && \
-#    apt-get install -y apt-transport-https && \
-#    echo "deb https://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list && \
-#    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 && \
-#    apt-get update && \
-#    apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev r-base r-base-dev 
+# Install R
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
+ && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list \
+ && apt-get update \
+ && apt-get install -y libcurl3-dev libssl-dev r-base
 
-#RUN R -e "install.packages(c('repr', 'IRdisplay', 'evaluate', 'crayon', 'pbdZMQ', 'devtools', 'uuid', 'digest'), repos='http://cran.r-project.org', INSTALL_opts='--no-html')"
-#RUN R -e "devtools::install_github('IRkernel/IRkernel'); IRkernel::installspec(user = FALSE)"
+# Install R kernel
+RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')" \
+      -e "devtools::install_github('IRkernel/IRkernel')" \
+      -e "IRkernel::installspec()"
 
+RUN chown -R biodocker:biodocker /home/biodocker
 
 USER biodocker
 
