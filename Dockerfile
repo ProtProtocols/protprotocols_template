@@ -25,5 +25,10 @@ RUN conda create -n ipykernel_py3 python=3 ipykernel \
 
 USER biodocker
 
+
+WORKDIR /home/biodocker
+RUN mkdir dataInput && mkdir dataOutput && mkdir logFiles && mkdir misc && rmdir bin
+
+
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
