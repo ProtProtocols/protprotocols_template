@@ -5,6 +5,11 @@ USER root
 RUN python -m pip install --upgrade pip \
  && python -m pip install jupyter
 
+## further functionalities
+# R kernel for jupyter
+#TODO
+
+
 USER biodocker
 
 EXPOSE 8888
