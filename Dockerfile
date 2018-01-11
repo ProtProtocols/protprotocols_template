@@ -14,7 +14,9 @@ RUN conda create -n ipykernel_py3 python=3 ipykernel \
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \
  && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list \
  && apt-get update \
- && apt-get install -y libcurl3-dev libssl-dev r-base
+ && apt-get install -y libcurl3-dev libssl-dev r-base \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Install R kernel
 RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')" \
