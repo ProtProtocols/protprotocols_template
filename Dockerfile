@@ -37,7 +37,7 @@ COPY tree.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
 COPY Eubic_logo.png /home/biodocker/misc
 
 # template for protocol notebook
-COPY 'Protocol Template.ipynb' .
+COPY ["Protocol Template.ipynb", "."]
 
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
