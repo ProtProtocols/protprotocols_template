@@ -33,10 +33,9 @@ COPY Eubic_logo.png /home/biodocker/misc
 # template for protocol notebook
 COPY ["Protocol Template.ipynb", "."]
 
-USER biodocker
-
-
 RUN chown -R biodocker:biodocker /home/biodocker
+
+USER biodocker
 
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
