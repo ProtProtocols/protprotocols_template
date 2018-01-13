@@ -23,8 +23,12 @@ RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')" \
       -e "devtools::install_github('IRkernel/IRkernel')" \
       -e "IRkernel::installspec()"
 
+# configure jupyter (turn's off token and password validations)
+COPY jupyter /home/biodocker/.jupyter
+
 WORKDIR /home/biodocker
 RUN mkdir IN  OUT LOG misc && rmdir bin
+
 
 # Changes in web interface
 COPY page.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
