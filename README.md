@@ -1,17 +1,33 @@
-# biocontainer-jupyter
 
-## build docker image
+
+# Template for proteomics protocols: biocontainer-jupyter
+Versions:
+
+latest: 0.1
+
+
+## Users: Run latest version
+- Either latest version: 
+```docker pull ```
+or: 
+
+
+- 
+- Use the link given by the previous command or access via _0.0.0.0:8888_ in a web browser.
+
+
+## Developers: Implement docker image 
+
+### build docker image
 In the directory where the Dockerfile is located:
 
 `sudo docker build -t biocontainer-jupyter .`
 
-## run docker image
+### run docker image
 `sudo docker run -i -t  -p 8888:8888  biocontainer-jupyter`
 
 You can change the second 8888 to any port you want to access the web interface
 
-## access protocol
-Use the link given by the previous command
 
 ## create a new protocol
 
