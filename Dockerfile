@@ -1,5 +1,11 @@
 FROM biocontainers/biocontainers:latest
 
+# HACK to fix issues on some machines
+# TODO: fix access on some machine when automatically created
+USER biodocker
+RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels 
+ && mkdir -p /home/biodocker/.local/share/jupyter/runtime 
+
 USER root
 
 # Install jupyter (python 2 version)
@@ -23,8 +29,12 @@ RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')" \
       -e "devtools::install_github('IRkernel/IRkernel')" \
       -e "IRkernel::installspec()"
 
+# configure jupyter (turn's off token and password validations)
+COPY jupyter /home/biodocker/.jupyter
+
 WORKDIR /home/biodocker
 RUN mkdir IN  OUT LOG misc && rmdir bin
+
 
 # Changes in web interface
 COPY page.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
@@ -37,5 +47,7 @@ RUN chown -R biodocker:biodocker /home/biodocker
 
 USER biodocker
 
+
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
+# CMD bash
