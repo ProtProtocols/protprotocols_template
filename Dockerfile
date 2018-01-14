@@ -1,5 +1,11 @@
 FROM biocontainers/biocontainers:latest
 
+# HACK to fix issues on some machines
+# TODO: fix access on some machine when automatically created
+USER biodocker
+RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels 
+ && mkdir -p /home/biodocker/.local/share/jupyter/runtime 
+
 USER root
 
 # Install jupyter (python 2 version)
@@ -41,5 +47,7 @@ RUN chown -R biodocker:biodocker /home/biodocker
 
 USER biodocker
 
+
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
+# CMD bash
