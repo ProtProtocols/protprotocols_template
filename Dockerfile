@@ -3,8 +3,7 @@ FROM biocontainers/biocontainers:latest
 # HACK to fix issues on some machines
 # TODO: fix access on some machine when automatically created
 USER biodocker
-RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels 
- && mkdir -p /home/biodocker/.local/share/jupyter/runtime 
+RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels  && mkdir -p /home/biodocker/.local/share/jupyter/runtime 
 
 USER root
 
