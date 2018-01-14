@@ -1,18 +1,20 @@
 
 
-# Template for proteomics protocols: biocontainer-jupyter
-Versions:
+# Template for proteomics protocols
+Based on the latest biocontainer (biocontainers.pro)
 
+Implements jupyter notebooks with python and R kernels for protocol descriptions
+
+Versions:
 latest: 0.1
 
 
 ## Users: Run latest version
 - Either latest version: 
-```docker pull ```
-or: 
-
-
-- 
+```docker pull veitveit/protprotocols_template:latest```
+or specific version:
+```TODO```
+- run image: ```docker run -i -t  -p 8888:8888  protprotocols_template```
 - Use the link given by the previous command or access via _0.0.0.0:8888_ in a web browser.
 
 
@@ -21,10 +23,10 @@ or:
 ### build docker image
 In the directory where the Dockerfile is located:
 
-`sudo docker build -t biocontainer-jupyter .`
+`docker build -t protprotocols_template .`
 
 ### run docker image
-`sudo docker run -i -t  -p 8888:8888  biocontainer-jupyter`
+`docker run -i -t  -p 8888:8888  protprotocols_template`
 
 You can change the second 8888 to any port you want to access the web interface
 
