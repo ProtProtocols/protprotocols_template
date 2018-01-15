@@ -6,8 +6,8 @@ Based on the latest biocontainer (biocontainers.pro)
 Implements jupyter notebooks with python and R kernels for protocol descriptions
 
 Versions:
-latest: 0.1
-
+latest: 0.1.1
+0.1
 
 ## Users: Run latest version
 - Either latest version: 
