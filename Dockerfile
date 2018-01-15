@@ -7,14 +7,16 @@ RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels  && mkdir -p /home/bio
 
 USER root
 
-# Install jupyter (python 2 version)
-RUN python -m pip install --upgrade pip  && python -m pip install jupyter
-
-# Install python 3 kernel
-RUN conda create -n ipykernel_py3 python=3 ipykernel  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install'
-
 # Install R
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9  && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list  && apt-get update  && apt-get install -y libcurl3-dev libssl-dev r-base  && apt-get clean  && rm -rf /var/lib/apt/lists/*
+
+# Install jupyter (python 3 version)
+RUN apt-get update &&  apt-get install -y python3 python3-pip python3-pandas && apt-get clean &&  python3 -m pip install --upgrade pip
+RUN pip3 --no-cache-dir install jupyter && pip --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && jupyter nbextension enable --py --sys-prefix widgetsnbextension && pip3 --no-cache-dir install jupyterhub && rm -rf /root/.cache
+
+# Install python3 kernel
+#RUN conda create -n ipykernel_py3 python=2 ipykernel  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install' && conda install -c conda-forge ipywidgets 
+RUN ipython  kernel install
 
 # Install R kernel
 RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"  -e "devtools::install_github('IRkernel/IRkernel')" -e "IRkernel::installspec()"
@@ -36,7 +38,6 @@ COPY ["Protocol Template.ipynb", "."]
 RUN chown -R biodocker:biodocker /home/biodocker
 
 USER biodocker
-
 
 EXPOSE 8888
 CMD jupyter notebook --ip=0.0.0.0 --no-browser
