@@ -16,7 +16,7 @@ RUN pip3 --no-cache-dir install jupyter && pip --no-cache-dir install jupyter &&
 
 
 RUN pip3 --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code && jupyter nbextension enable --py hide_code &&  jupyter serverextension enable --py hide_code && pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user && pip inst\
-all jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix
+all jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix 
 
 
 
@@ -30,6 +30,8 @@ RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"  -e "d
 
 # configure jupyter (turn's off token and password validations)
 COPY jupyter /home/biodocker/.jupyter
+# default settings for notebooks
+COPY notebook.json .jupyter/nbconfig/
 
 WORKDIR /home/biodocker
 RUN mkdir IN  OUT LOG misc && rmdir bin

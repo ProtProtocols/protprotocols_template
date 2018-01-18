@@ -1,0 +1,13 @@
+{
+  "load_extensions": {
+    "nbextensions_configurator/config_menu/main": true,
+    "init_cell/main": true,
+    "hide_code/hide_code": true,
+    "contrib_nbextensions_help_item/main": true,
+    "hide_input/main": false,
+    "codefolding/main": true,
+    "execute_time/ExecuteTime": true,
+    "notify/notify": true
+  }
+}
+
