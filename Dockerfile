@@ -15,7 +15,9 @@ RUN apt-get update &&  apt-get install -y python3 python3-pip python3-pandas && 
 RUN pip3 --no-cache-dir install jupyter && pip --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && jupyter nbextension enable --py --sys-prefix widgetsnbextension && pip3 --no-cache-dir install jupyterhub && rm -rf /root/.cache
 
 
-RUN pip3 --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code && jupyter nbextension enable --py hide_code &&  jupyter serverextension enable --py hide_code
+RUN pip3 --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code && jupyter nbextension enable --py hide_code &&  jupyter serverextension enable --py hide_code && pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user && pip inst\
+all jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix
+
 
 
 
