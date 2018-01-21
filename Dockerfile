@@ -14,12 +14,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 RUN apt-get update &&  apt-get install -y python3 python3-pip python3-pandas && apt-get clean &&  python3 -m pip install --upgrade pip
 RUN pip3 --no-cache-dir install jupyter && pip --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && jupyter nbextension enable --py --sys-prefix widgetsnbextension && pip3 --no-cache-dir install jupyterhub && rm -rf /root/.cache
 
-
 RUN pip3 --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code && jupyter nbextension enable --py hide_code &&  jupyter serverextension enable --py hide_code && pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user && pip inst\
 all jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix 
-
-
-
 
 # Install python3 kernel
 #RUN conda create -n ipykernel_py3 python=2 ipykernel  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install' && conda install -c conda-forge ipywidgets 
@@ -30,8 +26,6 @@ RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"  -e "d
 
 # configure jupyter (turn's off token and password validations)
 COPY jupyter /home/biodocker/.jupyter
-# default settings for notebooks
-COPY notebook.json .jupyter/nbconfig/
 
 WORKDIR /home/biodocker
 RUN mkdir IN  OUT LOG misc && rmdir bin
@@ -41,6 +35,9 @@ RUN mkdir IN  OUT LOG misc && rmdir bin
 COPY page.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
 COPY tree.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
 COPY Eubic_logo.png /home/biodocker/misc
+# default settings for notebooks
+COPY notebook.json /home/biodocker/.jupyter/nbconfig/
+
 # template for protocol notebook
 COPY ["Protocol Template.ipynb", "."]
 
