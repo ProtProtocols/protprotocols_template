@@ -34,6 +34,8 @@ RUN mkdir IN  OUT LOG misc && rmdir bin
 # Changes in web interface
 COPY page.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
 COPY tree.html /usr/local/lib/python2.7/dist-packages/notebook/templates/
+COPY page.html /usr/local/lib/python3.5/dist-packages/notebook/templates/
+COPY tree.html /usr/local/lib/python3.5/dist-packages/notebook/templates/
 COPY Eubic_logo.png /home/biodocker/misc
 # default settings for notebooks
 COPY notebook.json /home/biodocker/.jupyter/nbconfig/
