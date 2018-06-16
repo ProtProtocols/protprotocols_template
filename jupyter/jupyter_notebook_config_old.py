@@ -58,15 +58,6 @@
 #  Ignored if allow_origin is set.
 #c.NotebookApp.allow_origin_pat = ''
 
-## Allow password to be changed at login for the notebook server.
-#  
-#  While loggin in with a token, the notebook server UI will give the opportunity
-#  to the user to enter a new password at the same time that will replace the
-#  token login mechanism.
-#  
-#  This can be set to false to prevent changing password from the UI/API.
-#c.NotebookApp.allow_password_change = True
-
 ## Whether to allow the user to run the notebook as root.
 #c.NotebookApp.allow_root = False
 
@@ -141,9 +132,6 @@
 ## extra paths to look for Javascript notebook extensions
 #c.NotebookApp.extra_nbextensions_path = []
 
-## handlers that should be loaded at higher priority than the default services
-#c.NotebookApp.extra_services = []
-
 ## Extra paths to search for serving static files.
 #  
 #  This allows adding javascript/css to be available from the notebook server
@@ -162,8 +150,8 @@
 #  recompilation
 #c.NotebookApp.ignore_minified_js = False
 
-## (bytes/sec) Maximum rate at which stream output can be sent on iopub before
-#  they are limited.
+## (bytes/sec) Maximum rate at which messages can be sent on iopub before they
+#  are limited.
 #c.NotebookApp.iopub_data_rate_limit = 1000000
 
 ## (msgs/sec) Maximum rate at which messages can be sent on iopub before they are
@@ -211,7 +199,7 @@
 #c.NotebookApp.nbserver_extensions = {}
 
 ## The directory to use for notebooks and kernels.
-#c.NotebookApp.notebook_dir = '/home/biodocker'
+#c.NotebookApp.notebook_dir = '/home/biodocker/'
 
 ## Whether to open in a browser after starting. The specific browser used is
 #  platform dependent and determined by the python standard library `webbrowser`
@@ -230,7 +218,7 @@ c.NotebookApp.password = ''
 
 ## Forces users to use a password for the Notebook server. This is useful in a
 #  multi user environment, for instance when everybody in the LAN can access each
-#  other's machine through ssh.
+#  other's machine though ssh.
 #  
 #  In such a case, server the notebook server on localhost is not secure since
 #  any user can connect to the notebook server via ssh.
@@ -256,13 +244,6 @@ c.NotebookApp.password = ''
 
 ## The session manager class to use.
 #c.NotebookApp.session_manager_class = 'notebook.services.sessions.sessionmanager.SessionManager'
-
-## Shut down the server after N seconds with no kernels or terminals running and
-#  no activity. This can be used together with culling idle kernels
-#  (MappingKernelManager.cull_idle_timeout) to shutdown the notebook server when
-#  it's not in use. This is not precisely timed: it may shut down up to a minute
-#  later. 0 (the default) disables this automatic shutdown.
-#c.NotebookApp.shutdown_no_activity_timeout = 0
 
 ## Supply SSL options for the tornado HTTPServer. See the tornado docs for
 #  details.
@@ -290,25 +271,6 @@ c.NotebookApp.token = ''
 
 ## DEPRECATED, use tornado_settings
 #c.NotebookApp.webapp_settings = {}
-
-## Specify Where to open the notebook on startup. This is the
-#  `new` argument passed to the standard library method `webbrowser.open`.
-#  The behaviour is not guaranteed, but depends on browser support. Valid
-#  values are:
-#      2 opens a new tab,
-#      1 opens a new window,
-#      0 opens in an existing window.
-#  See the `webbrowser.open` documentation for details.
-#c.NotebookApp.webbrowser_open_new = 2
-
-## Set the tornado compression options for websocket connections.
-#  
-#  This value will be returned from
-#  :meth:`WebSocketHandler.get_compression_options`. None (default) will disable
-#  compression. A dict (even an empty one) will enable compression.
-#  
-#  See the tornado docs for WebSocketHandler.get_compression_options for details.
-#c.NotebookApp.websocket_compression_options = None
 
 ## The base URL for websockets, if it differs from the HTTP server (hint: it
 #  almost certainly doesn't).
@@ -467,7 +429,7 @@ c.NotebookApp.token = ''
 #c.Session.unpacker = 'json'
 
 ## Username for the Session. Default is your system username.
-#c.Session.username = 'veit'
+#c.Session.username = 'goksi'
 
 #------------------------------------------------------------------------------
 # MultiKernelManager(LoggingConfigurable) configuration
@@ -487,33 +449,6 @@ c.NotebookApp.token = ''
 #------------------------------------------------------------------------------
 
 ## A KernelManager that handles notebook mapping and HTTP error handling
-
-## Whether messages from kernels whose frontends have disconnected should be
-#  buffered in-memory.
-#  
-#  When True (default), messages are buffered and replayed on reconnect, avoiding
-#  lost messages due to interrupted connectivity.
-#  
-#  Disable if long-running kernels will produce too much output while no
-#  frontends are connected.
-#c.MappingKernelManager.buffer_offline_messages = True
-
-## Whether to consider culling kernels which are busy. Only effective if
-#  cull_idle_timeout > 0.
-#c.MappingKernelManager.cull_busy = False
-
-## Whether to consider culling kernels which have one or more connections. Only
-#  effective if cull_idle_timeout > 0.
-#c.MappingKernelManager.cull_connected = False
-
-## Timeout (in seconds) after which a kernel is considered idle and ready to be
-#  culled. Values of 0 or lower disable culling. Very short timeouts may result
-#  in kernels being culled for users with poor network connections.
-#c.MappingKernelManager.cull_idle_timeout = 0
-
-## The interval (in seconds) on which to check for idle kernels exceeding the
-#  cull timeout value.
-#c.MappingKernelManager.cull_interval = 300
 
 ## 
 #c.MappingKernelManager.root_dir = ''
@@ -536,9 +471,6 @@ c.NotebookApp.token = ''
 #  - if unspecified, path defaults to '',
 #    indicating the root path.
 
-## Allow access to hidden files
-#c.ContentsManager.allow_hidden = False
-
 ## 
 #c.ContentsManager.checkpoints = None
 
@@ -547,23 +479,6 @@ c.NotebookApp.token = ''
 
 ## 
 #c.ContentsManager.checkpoints_kwargs = {}
-
-## handler class to use when serving raw file requests.
-#  
-#  Default is a fallback that talks to the ContentsManager API, which may be
-#  inefficient, especially for large files.
-#  
-#  Local files-based ContentsManagers can use a StaticFileHandler subclass, which
-#  will be much more efficient.
-#  
-#  Access to these files should be Authenticated.
-#c.ContentsManager.files_handler_class = 'notebook.files.handlers.FilesHandler'
-
-## Extra parameters to pass to files_handler_class.
-#  
-#  For example, StaticFileHandlers generally expect a `path` argument specifying
-#  the root directory from which to serve files.
-#c.ContentsManager.files_handler_params = {}
 
 ## Glob patterns to hide in file and directory listings.
 #c.ContentsManager.hide_globs = ['__pycache__', '*.pyc', '*.pyo', '.DS_Store', '*.so', '*.dylib', '*~']
@@ -626,11 +541,6 @@ c.NotebookApp.token = ''
 #------------------------------------------------------------------------------
 # FileContentsManager(FileManagerMixin,ContentsManager) configuration
 #------------------------------------------------------------------------------
-
-## If True (default), deleting files will send them to the platform's
-#  trash/recycle bin, where they can be recovered. If False, deleting files
-#  really deletes them.
-#c.FileContentsManager.delete_to_trash = True
 
 ## Python callable or importstring thereof
 #  

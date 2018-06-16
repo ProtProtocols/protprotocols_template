@@ -5,7 +5,7 @@
     <meta charset="utf-8">
 
     <title>{% block title %}Jupyter Notebook{% endblock %}</title>
-    {% block favicon %}<link id="favicon" rel="shortcut icon" type="image/x-icon" href="{{static_url("base/images/favicon.ico") }}">{% endblock %}
+    {% block favicon %}<link rel="shortcut icon" type="image/x-icon" href="{{static_url("base/images/favicon.ico") }}">{% endblock %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="{{static_url("components/jquery-ui/themes/smoothness/jquery-ui.min.css") }}" type="text/css" />
     <link rel="stylesheet" href="{{static_url("components/jquery-typeahead/dist/jquery.typeahead.min.css") }}" type="text/css" />
@@ -33,14 +33,11 @@
             kernelspecs : '{{ base_url }}kernelspecs',
             underscore : 'components/underscore/underscore-min',
             backbone : 'components/backbone/backbone-min',
-            jed: 'components/jed/jed',
             jquery: 'components/jquery/jquery.min',
-            json: 'components/requirejs-plugins/src/json',
-            text: 'components/requirejs-text/text',
             bootstrap: 'components/bootstrap/js/bootstrap.min',
             bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
             'jquery-ui': 'components/jquery-ui/ui/minified/jquery-ui.min',
-            moment: 'components/moment/min/moment-with-locales',
+            moment: 'components/moment/moment',
             codemirror: 'components/codemirror',
             termjs: 'components/xterm.js/dist/xterm',
             typeahead: 'components/jquery-typeahead/dist/jquery.typeahead.min',
@@ -97,8 +94,6 @@
               return {};
           }
       })
-
-    document.nbjs_translations = {{ nbjs_translations|safe }};
     </script>
 
     {% block meta %}
@@ -116,42 +111,40 @@ dir="ltr">
 
 <noscript>
     <div id='noscript'>
-      {% trans %}Jupyter Notebook requires JavaScript.{% endtrans %}<br>
-      {% trans %}Please enable it to proceed. {% endtrans %}
+      Jupyter Notebook requires JavaScript.<br>
+      Please enable it to proceed.
   </div>
 </noscript>
 
 <div id="header">
- <div id="header-container" class="container">
-  <div id="ipython_notebook" class="nav navbar-brand pull-left"><a href="http://proteomics-academy.org" t
-itle='dashboard'>{% block logo %}<img src="notebooks/misc/Eubic_logo.png"' alt='EuBIC 2018'/></a>&nbspProteomics Protocols&nbsp;&nbsp;<a href="{{default_url}}" title='eubic'><img src='{{static_url("base/images/logo.png") }}' alt='Jupyter Notebook'/> &nbsp;&nbsp;{% endblock %}</a></div><br/>
+  <div id="header-container" class="container">
+  <div id="ipython_notebook" class="nav navbar-brand pull-left"><a href="http://proteomics-academy.org" title='dashboard'>{% block logo %}<img src="notebooks/misc/Eubic_logo.png"' alt='EuBIC 2018'/></a>&nbsp;&nbsp;Proteomics Protocols&nbsp;&nbsp;<a href="{{default_url}}" title='eubic'><img src='{{static_url("base/images/logo.png") }}' alt='Jupyter Notebook'/> &nbsp;&nbsp;{% endblock %}</a></div><br/>
 
- 
-  {% block headercontainer %}
-  {% endblock %}
-  
   {% block header_buttons %}
   
   {% block login_widget %}
 
     <span id="login_widget">
       {% if logged_in %}
-        <button id="logout" class="btn btn-sm navbar-btn">{% trans %}Logout{% endtrans %}</button>
+        <button id="logout" class="btn btn-sm navbar-btn">Logout</button>
       {% elif login_available and not logged_in %}
-        <button id="login" class="btn btn-sm navbar-btn">{% trans %}Login{% endtrans %}</button>
+        <button id="login" class="btn btn-sm navbar-btn">Login</button>
       {% endif %}
     </span>
 
   {% endblock %}
 
   {% endblock header_buttons %}
-  
+
+  {% block headercontainer %}
+  {% endblock %}
   </div>
   <div class="header-bar"></div>
 
   {% block header %}
   {% endblock %}
 </div>
+
 
 <div id="site">
 {% block site %}
