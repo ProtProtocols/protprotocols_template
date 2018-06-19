@@ -8,7 +8,7 @@ RUN mkdir -p /home/biodocker/.local/share/jupyter/kernels  && mkdir -p /home/bio
 USER root
 
 # Install R
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9  && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list  && apt-get update  && apt-get install -y libcurl3-dev libssl-dev r-base  && apt-get clean  && rm -rf /var/lib/apt/lists/*
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9  && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list  && apt-get update  && apt-get install -y libnetcdf11 libcurl3-dev libssl-dev r-base  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
 
 
