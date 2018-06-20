@@ -15,7 +15,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD5
 # Install jupyter (python 3 version)
 RUN apt-get update &&  apt-get install -y python3 python3-pip python3-pandas wkhtmltopdf && apt-get clean &&  python3 -m pip install --upgrade pip
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 1
-RUN pip3 --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && pip3 --no-cache-dir install jupyterhub && rm -rf /root/.cache
+RUN pip3 --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && pip3 --no-cache-dir install jupyterhub && pip3 --no-cache-dir install pandas --upgrade && rm -rf /root/.cache
 # jupyter nbextension enable --py --sys-prefix widgetsnbextension && 
 
 RUN pip --no-cache-dir install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user  && pip --no-cache-dir install jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix  && rm -rf /root/.cache
