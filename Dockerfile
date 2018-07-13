@@ -11,7 +11,7 @@ USER root
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9  && echo "deb http://cran.wu.ac.at/bin/linux/ubuntu xenial/" >> /etc/apt/sources.list  && apt-get update  && apt-get install -y libnetcdf11 libnetcdf-dev libcurl3-dev libxml2-dev libssl-dev r-base  && apt-get clean  && rm -rf /var/lib/apt/lists/*
 
 # Install additional packages like tetex for jupyter
-RUN apt-get update && apt-get install -y pandoc texlive-tetex && apt-get clean 
+RUN apt-get update && apt-get install -y pandoc texlive-xetex && apt-get clean 
 
 # Install jupyter (python 3 version)
 RUN apt-get update &&  apt-get install -y python3 python3-pip python3-pandas wkhtmltopdf && apt-get clean &&  python3 -m pip install --upgrade pip
