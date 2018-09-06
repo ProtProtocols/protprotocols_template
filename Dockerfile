@@ -19,17 +19,21 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.5 1
 RUN pip3 --no-cache-dir install jupyter && pip3 --no-cache-dir install rpy2 --upgrade && pip3 --no-cache-dir install jupyterlab &&   jupyter serverextension enable --py jupyterlab --sys-prefix &&  pip3 --no-cache-dir install bokeh && pip3 --no-cache-dir install ipywidgets && pip3 --no-cache-dir install jupyterhub && pip3 --no-cache-dir install pandas --upgrade && rm -rf /root/.cache
 # jupyter nbextension enable --py --sys-prefix widgetsnbextension && 
 
-RUN pip --no-cache-dir install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user  && pip --no-cache-dir install jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix  && rm -rf /root/.cache
+RUN pip3 --no-cache-dir install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user  && pip3 --no-cache-dir install jupyter_nbextensions_configurator && jupyter nbextensions_configurator enable --sys-prefix  && rm -rf /root/.cache
 
 # Install python3 kernel
-#RUN conda create -n ipykernel_py3 python=2 ipykernel  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install' && conda install -c conda-forge ipywidgets 
+#RUN conda create -n ipykernel_py3 python=2 ipykernel  && bash -c 'source activate ipykernel_py3 && python -m ipykernel install'
+
+# install iwidgets
+RUN pip3 --no-cache-dir install ipywidgets && jupyter nbextension enable --py widgetsnbextension --sys-prefix
+
 RUN ipython  kernel install
 
 # Install R kernel
 RUN R -e "install.packages('devtools', repos='http://cran.rstudio.com/')"  -e "devtools::install_github('IRkernel/IRkernel')" -e "IRkernel::installspec()"
 
 # install hide_code extension
-RUN pip --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code --sys-prefix && jupyter nbextension enable --py hide_code --sys-prefix && jupyter serverextension enable --py hide_code --sys-prefix 
+RUN pip3 --no-cache-dir install hide_code &&  jupyter nbextension install --py hide_code --sys-prefix && jupyter nbextension enable --py hide_code --sys-prefix && jupyter serverextension enable --py hide_code --sys-prefix 
 
 
 WORKDIR /home/biodocker
